@@ -16,10 +16,9 @@ public class Palla extends JPanel implements ActionListener, MouseListener, KeyL
     double velY = v0y;    
     int lato = 400;
     int colore = 0;
-    double t0 = System.currentTimeMillis();
+    double t0;
     double tempo;
     int delay = 10;
-    double accTerra = (double) 1022*delay/1000;
     int mouseX, mouseY;
     boolean start = false;
     
@@ -178,21 +177,28 @@ public class Palla extends JPanel implements ActionListener, MouseListener, KeyL
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_UP) {
-            velY = -20;
-            ballLoop.start();
-        }
-        if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-            velY = 20;
-            ballLoop.start();
-        }
-        if(e.getKeyCode() == KeyEvent.VK_LEFT) {
-            velX = -10;
-            ballLoop.start();
-        }
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            velX = +10;
-            ballLoop.start();
+        if(e.getKeyCode() == KeyEvent.VK_UP || 
+        e.getKeyCode() == KeyEvent.VK_DOWN ||
+        e.getKeyCode() == KeyEvent.VK_RIGHT ||
+        e.getKeyCode() == KeyEvent.VK_LEFT) {
+            
+            if(!start) {
+                t0 = System.currentTimeMillis();
+                ballLoop.start();
+                start = true;
+            }
+            if(e.getKeyCode() == KeyEvent.VK_UP) {
+                velY = -20;
+            }
+            if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+                velY = 20;
+            }
+            if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+                velX = -10;
+            }
+            if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                velX = +10;
+            }
         }
     }
 
